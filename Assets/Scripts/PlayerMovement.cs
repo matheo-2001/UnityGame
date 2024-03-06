@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] float rotationSpeed = 1000000000000f; // Vitesse de rotation
+    [SerializeField] float movementSpeed = 1f; // Vitesse de mouvement
     [SerializeField] float jumpForce = 5f;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
@@ -19,23 +20,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        // Rotation
         float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
 
-        Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-        if (movementDirection.magnitude >= 0.1f)
+        // Mouvement
+        if (Input.GetKey(KeyCode.W)) // Utilisez ici la touche que vous voulez pour avancer
         {
-            // Calcule l'angle pour faire tourner le personnage
-            float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
-            // Faites pivoter le personnage vers cet angle
-            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-
-            rb.velocity = new Vector3(movementDirection.x * movementSpeed, rb.velocity.y, movementDirection.z * movementSpeed);
-
-            playerAnim.SetTrigger("sprint"); // Assurez-vous de gérer correctement les transitions d'animation
+            Vector3 moveForward = transform.forward * movementSpeed * Time.deltaTime;
+            rb.MovePosition(rb.position + moveForward);
+            playerAnim.SetBool("isRunning", true);
+        }
+        else
+        {
+            playerAnim.SetBool("isRunning", false);
         }
 
+        // Saut
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
@@ -44,21 +45,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         jumpSound.Play();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy Head"))
-        {
-            Destroy(collision.transform.parent.gameObject);
-            Jump();
-        }
     }
 
     bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, .1f, ground);
+        return Physics.CheckSphere(groundCheck.position, 0.1f, ground);
     }
 }
