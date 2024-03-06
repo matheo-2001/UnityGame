@@ -7,28 +7,36 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float jumpForce = 5f;
-
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
-
-
     [SerializeField] AudioSource jumpSound;
+    public Animator playerAnim;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
+        Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
-        if(Input.GetButtonDown("Jump") && IsGrounded())
+        if (movementDirection.magnitude >= 0.1f)
+        {
+            // Calcule l'angle pour faire tourner le personnage
+            float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
+            // Faites pivoter le personnage vers cet angle
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+            rb.velocity = new Vector3(movementDirection.x * movementSpeed, rb.velocity.y, movementDirection.z * movementSpeed);
+
+            playerAnim.SetTrigger("sprint"); // Assurez-vous de gérer correctement les transitions d'animation
+        }
+
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
         }
@@ -42,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy Head"))
+        if (collision.gameObject.CompareTag("Enemy Head"))
         {
             Destroy(collision.transform.parent.gameObject);
             Jump();
