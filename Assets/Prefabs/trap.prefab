@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5987768368648501026}
   m_Layer: 0
   m_Name: trap
-  m_TagString: Coin
+  m_TagString: Enemy Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

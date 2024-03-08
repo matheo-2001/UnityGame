@@ -26,15 +26,14 @@ public class Finish : MonoBehaviour
             int coinsNeeded = requiredCoins - itemCollector.Coins;
             if (itemCollector.Coins >= requiredCoins)
             {
-                // Le joueur a assez de pièces, chargez la scène suivante ou terminez le jeu
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                // Le joueur a assez de pièces, chargez la scène "Main Menu"
+                SceneManager.LoadScene("Main Menu");
             }
             else
             {
                 notificationText.text = "Il vous manque " + coinsNeeded + " pièces pour finir le jeu.";
                 notificationText.gameObject.SetActive(true);
                 reloadButton.gameObject.SetActive(true); // Activer le bouton
-                                                         // Optionnel : désactivez le message et le bouton après quelques secondes
                 StartCoroutine(DisableUIAfterTime(5)); // Désactive le texte et le bouton après 5 secondes
             }
         }
