@@ -22,9 +22,9 @@ Dans ce jeu, le joueur se trouve dans un environnement sombre, ne disposant que 
 
 ### Commandes
 
-Z : Avancer
-Q : Tourner la caméra vers la gauche
-D : Tourner la caméra vers la droite 
+Z : Avancer <br>
+Q : Tourner la caméra vers la gauche<br>
+D : Tourner la caméra vers la droite <br>
 Espace : Sauter
 
 ### Pourquoi ce concept ?
