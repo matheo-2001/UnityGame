@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float rotationSpeed = 1000000000000f; // Vitesse de rotation
+    [SerializeField] float rotationSpeed = 1f; // Vitesse de rotation
     [SerializeField] float movementSpeed = 1f; // Vitesse de mouvement
     [SerializeField] float jumpForce = 5f;
     [SerializeField] Transform groundCheck;
