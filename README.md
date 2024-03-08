@@ -18,6 +18,15 @@ Dans ce jeu, le joueur se trouve dans un environnement sombre, ne disposant que 
 
 7. **Mouvement du joueur :** Le jeu propose des commandes intuitives pour les mouvements du joueur, y compris sauter, se déplacer, et utiliser la lampe torche, offrant ainsi une expérience de gameplay fluide et réactive.
 
+8. **Bouton reload :** Il propose un bouton permettant de reload le jeu à tout moment !
+
+### Commandes
+
+Z : Avancer <br>
+Q : Tourner la caméra vers la gauche<br>
+D : Tourner la caméra vers la droite <br>
+Espace : Sauter
+
 ### Pourquoi ce concept ?
 
 Le choix de ce concept, mêlant l'exploration dans le noir avec une lampe torche à la nécessité de sauter de plateforme en plateforme, vise à offrir une expérience de jeu unique et mémorable. En plaçant le joueur dans un environnement sombre, le jeu stimule l'exploration et l'aventure, tout en mettant à l'épreuve ses réflexes et sa capacité à planifier ses mouvements. La recherche de pièces dans un labyrinthe ajoute un aspect de jeu de puzzle, obligeant le joueur à réfléchir et à explorer pour progresser. Cette combinaison d'éléments crée une tension dramatique et une expérience de jeu captivante, où chaque décision peut influencer le succès ou l'échec de la mission.
